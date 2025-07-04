@@ -36,7 +36,7 @@ class Character extends Entity {
     print('방어 성공! $incomingDamage 만큼 체력을 회복했습니다. 현재 체력: $health');
   }
 
-  void useItem() {
+  void useItem() {    // 아이템을 이용해서 해당 턴에 공격력 2배 적용
     if (itemUsed) {
       print('이미 아이템을 사용했습니다.');
       return;
@@ -65,7 +65,7 @@ class Monster extends Entity {
     print('$name이(가) $damage의 피해를 입혔습니다.');
   }
 
-  void increaseDefense() {
+  void increaseDefense() {    // 3번의 턴이 지났을 때 이 함수를 불러서 몬스터의 방어력을 2만큼 올려주는 함수
     defense += 2;
     print('$name의 방어력이 증가했습니다! 현재 방어력: $defense');
   }
@@ -168,7 +168,7 @@ bool _battle() {
   void _loadCharacter() {
     stdout.write('캐릭터 이름을 입력하세요: ');
     String? name;
-    final nameReg = RegExp(r'^[가-힣a-zA-Z]+$');
+    final nameReg = RegExp(r'^[가-힣a-zA-Z]+$'); //이상하게 입력하기 방지
     while (true) {
       name = stdin.readLineSync()?.trim();
       if (name != null && nameReg.hasMatch(name)) break;
@@ -188,7 +188,7 @@ bool _battle() {
     }
   }
 
-  void _bonusHealth() {
+  void _bonusHealth() { // 30%의 확률로 캐릭터 보너스 체력 주기
     if (rand.nextDouble() < 0.3) {
       character.health += 10;
       print('보너스 체력을 얻었습니다! 현재 체력: ${character.health}');
@@ -210,7 +210,7 @@ bool _battle() {
     }
   }
 
-  void _saveResult(bool win) {
+  void _saveResult(bool win) { //데이터 저장하기
     stdout.write('결과를 저장하시겠습니까? (y/n): ');
     String? yn = stdin.readLineSync();
     if (yn?.toLowerCase() == 'y') {
